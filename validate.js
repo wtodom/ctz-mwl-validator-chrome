@@ -1,4 +1,4 @@
-var restricted = [
+const restricted = [
   // Corp
   'Bio-Ethics Association',
   'Estelle Moon',
@@ -20,7 +20,7 @@ var restricted = [
   'Stargate'
 ];
 
-var banned = [
+const banned = [
   // Corp
   'Border Control',
   'Brain Rewiring',
@@ -63,7 +63,9 @@ var banned = [
 ];
 
 function CTZ_VALIDATE_DECK() {
+  // There is one <textarea> on the decklist edit page.
   var jnetDecklist = document.getElementsByTagName('textarea');
+  // This matches more cards than the decklist, so it will be filtered below.
   var nrdbDecklist = document.getElementsByClassName('card');
 
   var restrictedCardsInDeck = [];

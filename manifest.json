@@ -1,7 +1,7 @@
 {
   "name": "CTZ MWL Validator",
   "version": "0.2",
-  "description": "Validate jnet and nrdb decklists according to the CTZ MWL.",
+  "description": "Validate decklists on jinteki.net and NetrunnerDB according to the CTZ MWL.",
   "background": {
     "scripts": ["background.js"]
   },
