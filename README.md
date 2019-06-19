@@ -10,4 +10,4 @@ CTZ MWL Validator is a Chrome extrension that checks for complaiance with the [C
 
 ## Usage
 
-Navigate to the edit page for your decklist and click the extension button in Chrome (usually to the right of the address bar). This will generate a small popup that either confirms that your decklisk is 💯 or lists which cards make the deck invalid. Simply press Enter or click `OK` to close the popup.
+Navigate to the edit page for your decklist and click the extension button in Chrome (usually to the right of the address bar). This will generate a small popup that either confirms that your decklist is 💯, or if any problems are found it will list which cards make the deck invalid. Simply press Enter, Esc, or click `OK` to close the popup.

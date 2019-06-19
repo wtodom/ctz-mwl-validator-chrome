@@ -1,68 +1,21 @@
-const restricted = [
-  // Corp
-  'Bio-Ethics Association',
-  'Estelle Moon',
-  'Excalibur',
-  'Obokata Protocol',
-  'Zealous Judge',
-  'Scarcity of Resources',
-  'Team Sponsorship',
-  'Museum of History',
-  'Hunter Seeker',
-  'SIU',
-  // Runner
-  'Caldera',
-  'Feedback Filter',
-  'Film Critic',
-  'Hippo',
-  'Hyperdriver',
-  'Jarogniew Mercs',
-  'Stargate'
-];
+var CTZ_MWL_GIST_URL =
+  'https://api.github.com/gists/64e075133f19d433445a5b2165d9a910';
 
-const banned = [
-  // Corp
-  'Border Control',
-  'Brain Rewiring',
-  'Bryan Stinson',
-  'Cerebral Imaging: Infinite Frontiers',
-  'Clone Suffrage Movement',
-  'Friends in High Places',
-  'Global Food Initiative',
-  'Hired Help',
-  'Jinteki: Potential Unleashed',
-  'Mother Goddess',
-  'Mti Mwekundu: Life Improved',
-  'Mumbad City Hall',
-  'Sensie Actors Union',
-  'Skorpios: Defense Systems',
-  'Whampoa Reclamation',
-  // Runner
-  '419: Amoral Scammer',
-  'Aaron Marron',
-  'Au Revoir',
-  'Bloo Moose',
-  'Crowdfunding',
-  'Dean Lister',
-  'Engolo',
-  'Employee Strike',
-  'Falsified Credentials',
-  'Faust',
-  'GPI Net Tap',
-  'Laamb',
-  'Labor Rights',
-  'Levy AR Lab Access',
-  'Misdirection',
-  'Paperclip',
-  'Salvaged Vanadis Armory',
-  'Şifr',
-  'Tapwrm',
-  'Temüjin Contract',
-  'Watch The World Burn',
-  'Zer0'
-];
+function CTZ_VALIDATE_DECK(mwl) {
+  if (
+    // fail fast if we're not on nrdb or jnet
+    !['https://www.jinteki.net', 'https://netrunnerdb.com'].includes(
+      window.location.origin
+    )
+  ) {
+    return;
+  }
 
-function CTZ_VALIDATE_DECK() {
+  var mwl_cards = JSON.parse(mwl.files.CTZ_MWL_3.content);
+  var banned = mwl_cards['banned'];
+  var restricted = mwl_cards['restricted'];
+  var last_updated = mwl.updated_at;
+
   // There is one <textarea> on the decklist edit page.
   var jnetDecklist = document.getElementsByTagName('textarea');
   // This matches more cards than the decklist, so it will be filtered below.
@@ -71,7 +24,7 @@ function CTZ_VALIDATE_DECK() {
   var restrictedCardsInDeck = [];
   var bannedCardsInDeck = [];
 
-  if (jnetDecklist.length != 0) {
+  if (window.location.origin == 'https://www.jinteki.net') {
     var cards = jnetDecklist[0].innerHTML.split('\n');
     for (let card of cards) {
       var cardName = card
@@ -84,7 +37,7 @@ function CTZ_VALIDATE_DECK() {
         bannedCardsInDeck.push(cardName);
       }
     }
-  } else {
+  } else if (window.location.origin == 'https://netrunnerdb.com') {
     for (let card of nrdbDecklist) {
       if (
         card.attributes.getNamedItem('data-index') != null &&
@@ -114,7 +67,12 @@ function CTZ_VALIDATE_DECK() {
   if (messages.length == 1) {
     messages.push('💯');
   }
+  messages.push('\nLast updated: ' + last_updated);
   alert(messages.join('\n'));
 }
 
-CTZ_VALIDATE_DECK();
+fetch('https://api.github.com/gists/64e075133f19d433445a5b2165d9a910')
+  .then(response => response.json())
+  .then(mwl => {
+    CTZ_VALIDATE_DECK(mwl);
+  });
