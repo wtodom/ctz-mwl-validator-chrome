@@ -49,8 +49,7 @@ function CTZ_VALIDATE_DECK(mwl) {
     for (let card of nrdbDecklist) {
       if (
         card.attributes.getNamedItem('data-index') != null &&
-        (card.parentElement.localName != 'td' ||
-          card.previousElementSibling == null)
+        card.parentElement.localName != 'td'
       ) {
         var cardName = card.innerText;
         if (restricted.includes(cardName)) {
@@ -59,6 +58,12 @@ function CTZ_VALIDATE_DECK(mwl) {
           bannedCardsInDeck.push(cardName);
         }
       }
+    }
+    var identity = document.getElementById('identity').children.innerText;
+    if (restricted.includes(identity)) {
+      restrictedCardsInDeck.push(identity);
+    } else if (banned.includes(identity)) {
+      bannedCardsInDeck.push(identity);
     }
   }
 

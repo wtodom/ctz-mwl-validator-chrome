@@ -1,6 +1,6 @@
 {
   "name": "CTZ MWL Validator",
-  "version": "1.0",
+  "version": "1.1.0",
   "author": "Weston Odom",
   "description": "Validate decklists on jinteki.net and NetrunnerDB according to the CTZ MWL.",
   "background": {
